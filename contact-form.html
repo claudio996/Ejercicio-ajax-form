@@ -1,0 +1,33 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envio-fetch form-submit</title>
+</head>
+
+<body>
+
+</body>
+<form class="contact-form" method="post">
+    <legend>Envianos tu informacion </legend>
+
+    <input type="text" name="name" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" placeholder="Escribe tu nombre" required title="El nombre solo acepta letras y espacios en blanco.">
+
+    <input type="email" name="email" placeholder="Escribe tu email" title="Email incorrecto" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required>
+
+    <input type="text" name="subject" placeholder="Asunto a tratar" title="El asunto es requerido">
+
+    <textarea name="comments" cols="50" rows="5" placeholder="Escribe tus comentarios" title="Tu comentario no debe exceder los 255 carcateres" data-pattern="^.{1,255}$" required></textarea>
+
+    <input type="submit" value="Enviar">
+    <div class="contact-form-loader none">
+        <img src="dist/assets/img/rings.svg" alt="cargando">
+    </div>
+    <div class="contact-form-response none">
+        <p>Los datos han sido enviados</p>
+    </div>
+</form>
+
+</html>
