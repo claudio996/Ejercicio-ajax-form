@@ -12,7 +12,7 @@ const contactForm = () => {
         input.insertAdjacentElement("afterend", $span);
     })
 
-    d.addEventListener("keyup", e => {
+    d.addEventListener("keyup", e => { //validations
 
         if (e.target.matches(".contact-form [required]")) {
             let $input = e.target,
@@ -37,21 +37,36 @@ const contactForm = () => {
 
     d.addEventListener("submit", e => { //del lado del servidor poner loader
         e.preventDefault();
-        // alert("enviado a mis amigos") //
 
         const $loader = d.querySelector(".contact-form-loader"),
             $response = d.querySelector('.contact-form-response'); //loader
         $loader.classList.remove("none"); //removemos la clase  none
-        alert("procesando")
-            //simulando una peticion a ajax--- u axios.
-        setTimeout(() => {
-            $loader.classList.add("none"); //removemos la clase  none
-            $response.classList.remove("none") //loader
-            $form.reset();
 
-            setTimeout(() => {
-                $response.classList.add("none")
-            }, 3000);
-        }, 3000);
-    })
+        fetch("https://formsubmit.co/ajax/desarrollopas2@gmail.com", {
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(resp => resp.ok ? resp.json() : Promise.reject(resp)) // wait prommise
+            .then(json => { // to receibe in format json.
+                console.log(json);
+                $loader.classList.add("none"); //remove class none.
+                $response.classList.remove("none") //loader
+                $response.innerHTML = `<p>${json.message}</p>`
+                $form.reset();
+
+            })
+            .catch(err => {
+                console.log(err);
+
+                let message = err.statusText || "Ocurrio un error al enviar, Intenta nuevamente";
+                $response.innerHTML = `<p>Error ${err.status}, ${message}</p>`
+            }).finally(() =>
+                setTimeout(() => {
+                    $response.classList.add("none")
+                    $response.innerHTML = ""
+                }, 3000))
+    });
 }
+
+
+d.addEventListener("DOMContentLoaded", contactForm);
