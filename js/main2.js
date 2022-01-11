@@ -1,6 +1,7 @@
+//El dom puede trabajar en todos los ambitos del html-  html-css-logica.
 const d = document;
 
-const contactForm = () => {
+const contactForm = () => { //
     const $form = d.querySelector(".contact-form"),
         $inputRequired = d.querySelectorAll(".contact-form [required]");
 
